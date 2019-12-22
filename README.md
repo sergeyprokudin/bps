@@ -23,7 +23,7 @@ noisy scan:
 - smaller number of cells required to represent shape accurately;
 - BPS cell arrangement could be different from a standard rectangular grid, allowing different types of convolutions;
 - significant improvement in performance: simply substituting occupancy voxels with  BPS directional vectors results 
-in a +9% accuracy improvement of a VoxNet-like Conv3D network on a ModelNet40 classification 
+in a +9% accuracy improvement of a VoxNet-like 3D-convolutional network on a ModelNet40 classification 
 challenge.
 
  Check our [ICCV 2019 paper](https://arxiv.org/abs/1908.09186) for more 
