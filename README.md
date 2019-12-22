@@ -115,6 +115,6 @@ If you find our work useful in your research, please consider citing:
 
 This library is licensed under the MIT-0 License. See the LICENSE file.
 
-_*Note*_: this is the official fork of the [Amazon repository](https://github.com/amzn/basis-point-sets) written by the 
+_**Note**_: this is the official fork of the [Amazon repository](https://github.com/amzn/basis-point-sets) written by the 
 same author during the time of internship. Latest features and bug fixes are likely to appear here first. 
 
