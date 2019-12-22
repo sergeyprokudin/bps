@@ -4,7 +4,7 @@
 representations.
 
 It is based on a _**simple idea**_: select k fixed points in space and compute vectors from  these basis points to the nearest
-points in the point cloud; use these vectors (or simply their norms) as features:
+points in a point cloud; use these vectors (or simply their norms) as features:
 
 ![Teaser Image](bps.gif)
 
@@ -17,15 +17,14 @@ noisy scan:
 
 ![Teaser Image](bps_demo.png)
 
-**FAQ**: key differences between standard occupancy voxels, TSDF and the proposed BPS representation:
+**FAQ**: what are the key differences between _**standard occupancy voxels, TSDF**_ and the proposed BPS representation?
 
-- continuous global information instead of simple binary flags or local distances in the cells;
+- continuous global vectors instead of simple binary flags or local distances in the cells;
 - smaller number of cells in order to represent shape accurately;
 - cell arrangements different from a standard rectangular grid;
-- significant improvement in performance: substituting occupancy voxels with  BPS directional vectors results 
-in +9% accuracy improvement of a VoxNet-like Conv3D network on a ModelNet40 classification 
-challenge,  exceeding performance of the PointNet\PointNet++ frameworks while having an order of magnitude 
-less floating point operations.
+- significant improvement in performance: simply substituting occupancy voxels with  BPS directional vectors results 
+in a +9% accuracy improvement of a VoxNet-like Conv3D network on a ModelNet40 classification 
+challenge.
 
  Check our [ICCV 2019 paper](https://arxiv.org/abs/1908.09186) for more 
  details.
@@ -36,6 +35,7 @@ less floating point operations.
 
 - Python >= 3.7
 - scikit-learn >= 0.21
+- tqdm >= 4.3
 - PyTorch >= 1.3 (for running provided demos)
 
 ### Installation
@@ -75,7 +75,7 @@ Clone the repository and install the dependencies:
 
 ```
 git clone https://github.com/sergeyprokudin/bps
-cd basis-point-sets
+cd bps
 python setup.py install
 pip3 install torch h5py
 ```
@@ -83,14 +83,14 @@ pip3 install torch h5py
 
 Check one of the provided examples:
 
-- **ModelNet40 3D shape classification with BPS-MLP** (~89% accuracy, ~20 minutes of training on a non-GPU MacBook Pro, 
-~2 minutes of training on Nvidia V100 16gb):
+- **ModelNet40 3D shape classification with BPS-MLP** (~89% accuracy, ~30 minutes of training on a non-GPU MacBook Pro, 
+~3 minutes of training on Nvidia V100 16gb):
 
 ```
 python bps_demos/train_modelnet_mlp.py
 ```
 
-- **ModelNet40 3D shape classification with BPS-Conv3D** (~92% accuracy, ~60 minutes of training on Nvidia V100 16gb):
+- **ModelNet40 3D shape classification with BPS-Conv3D** (~92% accuracy, ~120 minutes of training on Nvidia V100 16gb):
 
 ```
 python bps_demos/train_modelnet_conv3d.py
