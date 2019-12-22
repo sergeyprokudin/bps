@@ -175,7 +175,7 @@ def main():
 
     optimizer = pt.optim.Adam(model.parameters(), lr=1e-3)
 
-    n_epochs = 730
+    n_epochs = 800
     pbar = range(0, n_epochs)
     test_accs = []
     test_losses = []
