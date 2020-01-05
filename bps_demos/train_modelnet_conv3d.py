@@ -125,8 +125,6 @@ def prepare_data_loaders():
         xtr_normalized = bps.normalize(xtr)
         xte_normalized = bps.normalize(xte)
 
-        # this will encode your normalised point clouds with random basis of 512 points,
-        # each BPS cell containing l2-distance to closest point
         print("converting data to BPS representation..")
         print("number of basis points: %d" % N_BPS_POINTS)
         print("BPS sampling radius: %f" % BPS_RADIUS)
