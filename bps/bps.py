@@ -34,7 +34,7 @@ def normalize(x, known_scalers=False, x_mean=None, x_max=None, max_rescale=True,
         Max norm of every cloud
     """
 
-    def _normalize_cloud(x, x_mean=None, x_max=None, max_rescale=True):
+    def _normalize_cloud(x, max_rescale=True, x_mean=None, x_max=None):
         """normalize single cloud"""
 
         if x_mean is None:
@@ -67,9 +67,9 @@ def normalize(x, known_scalers=False, x_mean=None, x_max=None, max_rescale=True,
 
     for pid in fid_lst:
         if known_scalers is False:
-            x_norm[pid], x_mean[pid], x_max[pid] = _normalize_cloud(x[pid])
+            x_norm[pid], x_mean[pid], x_max[pid] = _normalize_cloud(x[pid], max_rescale=max_rescale)
         else:
-            x_norm[pid], _, _ = _normalize_cloud(x[pid], x_mean[pid], x_max[pid], max_rescale=max_rescale)
+            x_norm[pid], _, _ = _normalize_cloud(x[pid], max_rescale=max_rescale, x_mean[pid], x_max[pid])
 
     if return_scalers:
         return x_norm, x_mean, x_max
