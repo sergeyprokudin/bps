@@ -69,7 +69,7 @@ def normalize(x, known_scalers=False, x_mean=None, x_max=None, max_rescale=True,
         if known_scalers is False:
             x_norm[pid], x_mean[pid], x_max[pid] = _normalize_cloud(x[pid], max_rescale=max_rescale)
         else:
-            x_norm[pid], _, _ = _normalize_cloud(x[pid], max_rescale=max_rescale, x_mean[pid], x_max[pid])
+            x_norm[pid], _, _ = _normalize_cloud(x[pid], max_rescale=max_rescale, x_mean=x_mean[pid], x_max=x_max[pid])
 
     if return_scalers:
         return x_norm, x_mean, x_max
