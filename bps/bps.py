@@ -248,7 +248,7 @@ def encode(x, bps_arrangement='random', n_bps_points=512, radius=1.5, bps_cell_t
             x_bps = np.zeros([n_clouds, n_bps_points, n_features])
         else:
             raise ValueError("Invalid cell type. Supported types: \'dists\', \'deltas\', \'closest\', \'features\'")
-        fid_lst = range(0, x.shape[0])
+        fid_lst = range(0, n_clouds)
 
         if verbose:
             fid_lst = tqdm(fid_lst)
