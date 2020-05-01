@@ -37,6 +37,8 @@ challenge.
 - scikit-learn >= 0.21;
 - tqdm >= 4.3;
 - PyTorch >= 1.3 (for running provided demos)
+- trimesh, pillow, pyntcloud (for running human mesh registration code)
+- [psbody-mesh](https://github.com/MPI-IS/mesh) (for FAUST registration correspondences)
 
 ### Installation
 

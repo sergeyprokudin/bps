@@ -201,6 +201,7 @@ def visualise_predictions(scan, align_verts, align_faces, scan_id, scan2mesh_los
 
     return
 
+
 def compute_faust_correspondences(alignment_verts, faust_data_path, output_dir, mesh_faces, mode='intra'):
 
     from psbody.mesh import Mesh
