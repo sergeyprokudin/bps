@@ -96,7 +96,7 @@ python bps_demos/train_modelnet_mlp.py
 python bps_demos/train_modelnet_conv3d.py
 ```
 
-- **Human body mesh registration**: check the tutorial notebook to run the ![pre-trained model](https://github.com/sergeyprokudin/bps/blob/master/bps_demos/Mesh%20Registration%20from%203D%20Scans%20(FAUST%20evaluation).ipynb).
+- **Human body mesh registration**: check [tutorial notebook](https://github.com/sergeyprokudin/bps/blob/master/bps_demos/Mesh%20Registration%20from%203D%20Scans%20(FAUST%20evaluation).ipynb) to run the pre-trained model
 
 ![Teaser Image](faust_examples.gif)
 
