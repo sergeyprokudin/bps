@@ -25,7 +25,7 @@ MESH_SCALER = 1000
 SMPL_FACES = np.loadtxt('smpl_mesh_faces.txt')
 DBSCAN_EPS = 0.05
 DBSCAN_MIN_SAMPLES = 10
-
+MAX_POINTS_TO_SHOW = 10**5
 
 def load_scan(scan_path, n_sample_points=10000, denoise=True,
               dbscan_eps=DBSCAN_EPS, dbscan_min_samples=DBSCAN_MIN_SAMPLES):
@@ -85,9 +85,9 @@ def save_obj(mesh_verts, mesh_faces, save_path, face_colors=[0, 128, 255]):
 
 def save_visualisations(save_path, x_orig, x_proc, x_align, smpl_faces, scan2mesh_dist, scan_path,
                         max_points_to_show=100000):
-    fig = plt.figure(figsize=(30, 10))
+    fig = plt.figure(figsize=(25, 10))
 
-    fig1 = fig.add_subplot(1, 4, 1, projection='3d')
+    fig1 = fig.add_subplot(1, 3, 1, projection='3d')
     fig1.axis('off')
     fig1.set_xlim(np.min(x_align[:, 0]), np.max(x_align[:, 0]))
     fig1.set_ylim(np.min(x_align[:, 1]), np.max(x_align[:, 1]))
@@ -96,15 +96,15 @@ def save_visualisations(save_path, x_orig, x_proc, x_align, smpl_faces, scan2mes
     fig1.scatter(x_orig_show[:, 0], x_orig_show[:, 1], x_orig_show[:, 2], s=0.1, c=x_orig_show[:, 3:])
     plt.title('Input Scan', size=30)
 
-    fig1 = fig.add_subplot(1, 4, 2, projection='3d')
-    fig1.axis('off')
-    fig1.set_xlim(np.min(x_align[:, 0]), np.max(x_align[:, 0]))
-    fig1.set_ylim(np.min(x_align[:, 1]), np.max(x_align[:, 1]))
-    fig1.view_init(elev=90, azim=-90)
-    plt.scatter(x_proc[:, 0], x_proc[:, 1], s=1.0, c='lightgreen')
-    plt.title('Downsampled & Denoised', size=30)
+    # fig1 = fig.add_subplot(1, 4, 2, projection='3d')
+    # fig1.axis('off')
+    # fig1.set_xlim(np.min(x_align[:, 0]), np.max(x_align[:, 0]))
+    # fig1.set_ylim(np.min(x_align[:, 1]), np.max(x_align[:, 1]))
+    # fig1.view_init(elev=90, azim=-90)
+    # plt.scatter(x_proc[:, 0], x_proc[:, 1], s=1.0, c='lightgreen')
+    # plt.title('Downsampled & Denoised', size=30)
 
-    fig1 = fig.add_subplot(1, 4, 3, projection='3d')
+    fig1 = fig.add_subplot(1, 3, 2, projection='3d')
     fig1.axis('off')
     fig1.set_xlim(np.min(x_align[:, 0]), np.max(x_align[:, 0]))
     fig1.set_ylim(np.min(x_align[:, 1]), np.max(x_align[:, 1]))
@@ -112,18 +112,19 @@ def save_visualisations(save_path, x_orig, x_proc, x_align, smpl_faces, scan2mes
     fig1.plot_trisurf(x_align[:, 0], x_align[:, 1], x_align[:, 2], triangles=smpl_faces, color=[0, 0.5, 1.0])
     plt.title('Predicted Alignment', size=30)
 
-    fig1 = fig.add_subplot(1, 4, 4, projection='3d')
+    fig1 = fig.add_subplot(1, 3, 3, projection='3d')
     fig1.axis('off')
     fig1.set_xlim(np.min(x_align[:, 0]), np.max(x_align[:, 0]))
     fig1.set_ylim(np.min(x_align[:, 1]), np.max(x_align[:, 1]))
     fig1.view_init(elev=90, azim=-90)
-    fig1.scatter(x_proc[:, 0], x_proc[:, 1], x_proc[:, 2], s=1.0, c='lightgreen')
+    #fig1.scatter(x_proc[:, 0], x_proc[:, 1], x_proc[:, 2], s=1.0, c='lightgreen')
+    fig1.scatter(x_orig_show[:, 0], x_orig_show[:, 1], x_orig_show[:, 2], s=0.1, c=x_orig_show[:, 3:])
     fig1.plot_trisurf(x_align[:, 0], x_align[:, 1], x_align[:, 2], triangles=smpl_faces, color=[0, 0.5, 1.0])
     plt.title('Overlay (scan2mesh: %3.1f mms)' % scan2mesh_dist, size=30)
 
     fig.suptitle("%s" % scan_path, size=15, fontweight="bold", ha='left', y=0.15, x=0.05)
     fig.tight_layout()
-    plt.savefig(save_path, dpi=100)
+    plt.savefig(save_path, dpi=100, transparent=True)
     plt.close()
 
     print("predictions visualisations saved at: %s" % save_path)
@@ -159,34 +160,7 @@ def process_scan(scan_path, ckpt_path, out_dir):
               "DBSCAN_EPS, DBSCAN_MIN_SAMPLES for input scan initial denoising")
 
     save_visualisations(img_save_path, x_orig, x_proc, x_align, SMPL_FACES, scan2mesh_dist, scan_path,
-                        max_points_to_show=50000)
-
-    return
-
-
-def download_checkpoint(url, root_data_dir):
-
-    import urllib
-
-    def _download_reporthook(blocknum, blocksize, totalsize):
-        readsofar = blocknum * blocksize
-        if totalsize > 0:
-            percent = readsofar * 1e2 / totalsize
-            s = "\r%5.1f%% %*d / %d" % (
-                percent, len(str(totalsize)), readsofar, totalsize)
-            sys.stderr.write(s)
-            if readsofar >= totalsize:  # near the end
-                sys.stderr.write("\n")
-        else:  # total size is unknown
-            sys.stderr.write("read %d\n" % (readsofar,))
-
-    if not os.path.exists(root_data_dir):
-        os.makedirs(root_data_dir)
-
-    download_path = os.path.join(root_data_dir, 'modelnet40_ply_hdf5_2048.zip')
-
-    print("downloading ModelNet40 data..")
-    urllib.request.urlretrieve(url, download_path, _download_reporthook)
+                        max_points_to_show=MAX_POINTS_TO_SHOW)
 
     return
 

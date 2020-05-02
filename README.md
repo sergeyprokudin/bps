@@ -100,7 +100,7 @@ python bps_demos/train_modelnet_conv3d.py
 
 - **FAUST body mesh registration**: check [tutorial notebook](https://github.com/sergeyprokudin/bps/blob/master/bps_demos/Mesh%20Registration%20from%203D%20Scans%20(FAUST%20evaluation).ipynb) to run the pre-trained model
 
-You can directly download the results (predicted alignments, computed correspondences, demo video) [here](https://www.dropbox.com/s/gvo2hyvh6okwty3/faust_logs.zip?dl=0)
+You can directly download the results (predicted alignments, computed correspondences, demo video) [here](https://www.dropbox.com/s/gvo2hyvh6okwty3/faust_logs.zip?dl=0).
 
 Results are also visualised in [this video](https://www.dropbox.com/s/2ir8p4m24tm8cpj/faust_test_demo.mp4?dl=0).
 
@@ -123,7 +123,7 @@ If a directory is provided as a first parameter, the alignment model will be ran
 
 Example of a prediction and output visualisation on some noisy real scan:
 
-![Teaser](noisy_scan_preds.png)
+![Teaser](real_scan_alignment.png)
 
 
 ## Citation
