@@ -38,7 +38,7 @@ challenge.
 - tqdm >= 4.3;
 - PyTorch >= 1.3 (for running provided demos)
 - trimesh, pillow, pyntcloud (for running human mesh registration code)
-- [psbody-mesh](https://github.com/MPI-IS/mesh) (for FAUST registration correspondences)
+- [psbody-mesh](https://github.com/MPI-IS/mesh) (to compute FAUST registrations correspondences)
 
 ### Installation
 
