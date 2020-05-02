@@ -113,7 +113,8 @@ cd data
 wget https://www.dropbox.com/s/u3d1uighrtcprh2/mesh_regressor.h5?dl=0
 ```
 
-Run the model, providing the paths to your own *.ply file and output directory. Example:
+Run the model, providing the paths to your own *.ply file and output directory. You can test that everything works by running the following synthetic example:
+
 ```
 cd bps_demos
 python run_alignment.py demo_scan.ply ../logs/demo_output
@@ -121,7 +122,7 @@ python run_alignment.py demo_scan.ply ../logs/demo_output
 
 If a directory is provided as a first parameter, the alignment model will be ran on all *.ply files found. 
 
-Example of a prediction and output visualisation on some noisy real scan:
+Example of a prediction on some noisy real scan:
 
 ![Teaser](real_scan_alignment.png)
 
