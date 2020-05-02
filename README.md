@@ -124,7 +124,7 @@ If a directory is provided as a first parameter, the alignment model will be ran
 
 Here is an example of a prediction on some noisy real scan:
 
-![Teaser](real_scan_alignment.png)
+![Teaser](real_scan_alignment.svg)
 
 
 ## Citation
