@@ -110,7 +110,7 @@ Results are also visualised in [this video](https://www.dropbox.com/s/2ir8p4m24t
 ```
 mkdir data
 cd data
-wget https://www.dropbox.com/s/u3d1uighrtcprh2/mesh_regressor.h5?dl=0
+wget --output-document=mesh_regressor.h5 https://www.dropbox.com/s/u3d1uighrtcprh2/mesh_regressor.h5?dl=0
 ```
 
 Run the model, providing the paths to your own *.ply file and output directory. You can test that everything works by running the following synthetic example:
