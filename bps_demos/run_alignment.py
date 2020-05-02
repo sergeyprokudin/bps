@@ -27,6 +27,7 @@ DBSCAN_EPS = 0.05
 DBSCAN_MIN_SAMPLES = 10
 MAX_POINTS_TO_SHOW = 10**5
 
+
 def load_scan(scan_path, n_sample_points=10000, denoise=True,
               dbscan_eps=DBSCAN_EPS, dbscan_min_samples=DBSCAN_MIN_SAMPLES):
     """Load ply file and sample n_scan_points from it
@@ -117,7 +118,7 @@ def save_visualisations(save_path, x_orig, x_proc, x_align, smpl_faces, scan2mes
     fig1.set_xlim(np.min(x_align[:, 0]), np.max(x_align[:, 0]))
     fig1.set_ylim(np.min(x_align[:, 1]), np.max(x_align[:, 1]))
     fig1.view_init(elev=90, azim=-90)
-    #fig1.scatter(x_proc[:, 0], x_proc[:, 1], x_proc[:, 2], s=1.0, c='lightgreen')
+
     fig1.scatter(x_orig_show[:, 0], x_orig_show[:, 1], x_orig_show[:, 2], s=0.1, c=x_orig_show[:, 3:])
     fig1.plot_trisurf(x_align[:, 0], x_align[:, 1], x_align[:, 2], triangles=smpl_faces, color=[0, 0.5, 1.0])
     plt.title('Overlay (scan2mesh: %3.1f mms)' % scan2mesh_dist, size=30)

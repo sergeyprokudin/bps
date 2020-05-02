@@ -98,7 +98,7 @@ python bps_demos/train_modelnet_mlp.py
 python bps_demos/train_modelnet_conv3d.py
 ```
 
-- **FAUST body mesh registration**: check [tutorial notebook](https://github.com/sergeyprokudin/bps/blob/master/bps_demos/Mesh%20Registration%20from%203D%20Scans%20(FAUST%20evaluation).ipynb) to run the pre-trained model
+- **FAUST body mesh registration**: check [tutorial notebook](https://github.com/sergeyprokudin/bps/blob/master/bps_demos/Mesh%20Registration%20from%203D%20Scans%20(FAUST%20evaluation).ipynb) to run the evaluation of the pre-trained model.
 
 You can directly download the results (predicted alignments, computed correspondences, demo video) [here](https://www.dropbox.com/s/gvo2hyvh6okwty3/faust_logs.zip?dl=0).
 
