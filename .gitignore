@@ -107,4 +107,6 @@ data/
 logs/
 .idea/
 .idea
+*.idea
 *.DS_Store
+*.ipynb_checkpoints

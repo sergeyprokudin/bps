@@ -98,9 +98,33 @@ python bps_demos/train_modelnet_mlp.py
 python bps_demos/train_modelnet_conv3d.py
 ```
 
-- **Human body mesh registration**: check [tutorial notebook](https://github.com/sergeyprokudin/bps/blob/master/bps_demos/Mesh%20Registration%20from%203D%20Scans%20(FAUST%20evaluation).ipynb) to run the pre-trained model
+- **FAUST body mesh registration**: check [tutorial notebook](https://github.com/sergeyprokudin/bps/blob/master/bps_demos/Mesh%20Registration%20from%203D%20Scans%20(FAUST%20evaluation).ipynb) to run the pre-trained model
+
+You can directly download the results (predicted alignments, computed correspondences, demo video) [here](https://www.dropbox.com/s/gvo2hyvh6okwty3/faust_logs.zip?dl=0)
+
+Results are also visualised in [this video](https://www.dropbox.com/s/2ir8p4m24tm8cpj/faust_test_demo.mp4?dl=0).
 
 ![Teaser Image](faust_examples.gif)
+
+- **Running pre-trained model on your own 3D body scans**: download the model checkpoint ([mirror](https://drive.google.com/open?id=19uJp7jeQRdx3rviE7VFD5GkglxvFbzfh)):
+```
+mkdir data
+cd data
+wget https://www.dropbox.com/s/u3d1uighrtcprh2/mesh_regressor.h5?dl=0
+```
+
+Run the model, providing the paths to your own *.ply file and output directory. Example:
+```
+cd bps_demos
+python run_alignment.py demo_scan.ply ../logs/demo_output
+```
+
+If a directory is provided as a first parameter, the alignment model will be ran on all *.ply files found. 
+
+Example of a prediction and output visualisation on some noisy real scan:
+
+![Teaser](noisy_scan_preds.png)
+
 
 ## Citation
 
