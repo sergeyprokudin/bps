@@ -181,7 +181,7 @@ def main():
             raise ValueError("%s is not a PLY file!" % scan_path)
     else:
         import glob
-        scans = glob.glob(scan_path+'*.ply')
+        scans = glob.glob(os.path.join(scan_path, '*.ply'))
         print("found %d scans in %s folder" % (len(scans), scan_path))
         for scan in scans:
             process_scan(scan, CKPT_PATH, out_dir)
