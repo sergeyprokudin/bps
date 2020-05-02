@@ -122,7 +122,7 @@ python run_alignment.py demo_scan.ply ../logs/demo_output
 
 If a directory is provided as a first parameter, the alignment model will be ran on all *.ply files found. 
 
-Example of a prediction on some noisy real scan:
+Here is an example of a prediction on some noisy real scan:
 
 ![Teaser](real_scan_alignment.png)
 

@@ -35,7 +35,7 @@ def load_scan(scan_path, n_sample_points=10000, denoise=True,
 
     scan = trimesh.load_mesh(scan_path)
     n_scan_points = len(scan.vertices)
-    if hasattr(scan, 'colors') and scan.colors[0].shape == scan.vertices.shape:
+    if hasattr(scan, 'colors') and (scan.colors[0] is not None):
         scan_rgb = np.asarray(scan.colors[0]) / 255
     else:
         print("no color channel for the point cloud detected, using default green color...")
