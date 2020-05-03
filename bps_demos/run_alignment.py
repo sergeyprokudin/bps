@@ -6,7 +6,7 @@ mkdir ../data
 cd ../data
 wget --output-document=mesh_regressor.h5 https://www.dropbox.com/s/u3d1uighrtcprh2/mesh_regressor.h5?dl=0
 
-Example usage:
+Usage example:
 
 python run_alignment.py demo_scan.ply ../logs/demo_output
 
