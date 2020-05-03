@@ -1,3 +1,19 @@
+"""Predict SMPL mesh from a noisy human body scan
+
+Download the model and adjust CKPT_PATH accordingly:
+
+mkdir ../data
+cd ../data
+wget --output-document=mesh_regressor.h5 https://www.dropbox.com/s/u3d1uighrtcprh2/mesh_regressor.h5?dl=0
+
+Example usage:
+
+python run_alignment.py demo_scan.ply ../logs/demo_output
+
+If a directory is provided as a first parameter, the alignment model will be ran on all *.ply files found.
+
+"""
+
 import os
 import ntpath
 import numpy as np
