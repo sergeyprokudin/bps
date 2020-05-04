@@ -162,13 +162,13 @@ def process_scan(scan_path, ckpt_path, out_dir):
     img_save_path = os.path.join(out_dir, scan_name + '.png')
 
     print("loading and denoising scan..")
-    x_orig, x_proc = load_scan(scan_path)
+    scan_orig, scan_denoised = load_scan(scan_path)
 
     print("predicting alignment..")
-    x_align = get_alignment(x_proc, ckpt_path)
+    mesh_verts_pred = get_alignment(scan_denoised, ckpt_path)
 
-    save_obj(mesh_verts=x_align, mesh_faces=SMPL_FACES, save_path=obj_save_path)
-    scan2mesh_dist = MESH_SCALER * chamfer_distance(x_align, x_proc, direction='y_to_x')
+    save_obj(mesh_verts=mesh_verts_pred, mesh_faces=SMPL_FACES, save_path=obj_save_path)
+    scan2mesh_dist = MESH_SCALER * chamfer_distance(mesh_verts_pred, scan_denoised, direction='y_to_x')
 
     print("scan2mesh distance: %3.1f mms" % scan2mesh_dist)
     if scan2mesh_dist > 40:
@@ -176,7 +176,7 @@ def process_scan(scan_path, ckpt_path, out_dir):
               "(scanned body is facing z axis, use demo_scan.ply for calibration). You can also experiment with "
               "DBSCAN_EPS, DBSCAN_MIN_SAMPLES for input scan initial denoising")
 
-    save_visualisations(img_save_path, x_orig, x_proc, x_align, SMPL_FACES, scan2mesh_dist, scan_path,
+    save_visualisations(img_save_path, scan_orig, scan_denoised, mesh_verts_pred, SMPL_FACES, scan2mesh_dist, scan_path,
                         max_points_to_show=MAX_POINTS_TO_SHOW)
 
     return
