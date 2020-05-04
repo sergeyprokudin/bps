@@ -22,7 +22,7 @@ def chamfer_distance(x, y, metric='l2', direction='bi'):
     -------
     chamfer_dist: float
         computed bidirectional Chamfer distance:
-            sum_{x_i \in x}{\min_{y_j \in y}{||x_i-y_j||**2}} + sum_{y_j \in y}{\min_{x_i \in x}{||x_i-y_j||**2}}
+            sum_{x_i \in x}{\min_{y_j \in y}{||x_i-y_j||_metric}} + sum_{y_j \in y}{\min_{x_i \in x}{||x_i-y_j||_metric}}
     """
 
     if direction == 'y_to_x':
