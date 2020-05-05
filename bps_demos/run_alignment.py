@@ -75,17 +75,19 @@ def load_scan(scan_path, n_sample_points=10000, denoise=True,
 
     scan = trimesh.load_mesh(scan_path)
     n_scan_points = len(scan.vertices)
+    scan_xyz = np.asarray(scan.vertices)
 
     try:
         scan_rgb = np.asarray(scan.colors[0]) / 255
+        assert scan_rgb.shape == scan_xyz.shape # expecting RGB array of the same size
     except:
-        print("no color channel for the point cloud detected, using default green color...")
+        print("no valid color channel for the point cloud detected, using default green color...")
         scan_rgb = np.tile(np.asarray([0, 1.0, 0.5]), [n_scan_points, 1])
 
-    scan_orig = np.concatenate([np.asarray(scan.vertices), scan_rgb], 1)
+    scan_orig = np.concatenate([scan_xyz, scan_rgb], 1)
 
     if type(scan) == trimesh.points.PointCloud:
-        scan_processed = np.asarray(scan.vertices[np.random.choice(scan.vertices.shape[0], n_sample_points)])
+        scan_processed = np.asarray(scan_xyz[np.random.choice(n_scan_points, n_sample_points)])
     elif type(scan) == trimesh.base.Trimesh:
         scan_processed = scan.sample(n_sample_points)
     else:
