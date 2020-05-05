@@ -66,7 +66,7 @@ def load_scan(scan_path, n_sample_points=10000, denoise=True,
     Returns
     -------
 
-    scan_orig: numpy array [n_points, 6]
+    scan_orig: numpy array [n_scan_points, 6]
         original scan converted to numpy array, including color channel
     scan_processed:  numpy array [n_sample_points, 3]
         preprocessed scan (downsampled and denoised)
