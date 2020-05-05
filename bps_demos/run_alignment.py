@@ -21,6 +21,7 @@ import trimesh
 import torch
 import matplotlib
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import sys
 
 matplotlib.rcParams['mathtext.fontset'] = 'stix'
@@ -46,15 +47,38 @@ MAX_POINTS_TO_SHOW = 10**5
 
 def load_scan(scan_path, n_sample_points=10000, denoise=True,
               dbscan_eps=DBSCAN_EPS, dbscan_min_samples=DBSCAN_MIN_SAMPLES):
-    """Load ply file and sample n_scan_points from it
+    """
+    Loading *.ply scan, downsampling and denoising with DBSCAN clustering
+
+    Parameters
+    ----------
+    scan_path: str
+        path to *.ply scan file
+    n_sample_points: int
+        number of points to sample from the original scan
+    denoise: bool
+        whether to denoise the input scan with DBSCAN clustering of points
+    dbscan_eps: float
+        DBSCAN eps parameter
+    dbscan_min_samples: int
+        DBSCAN min_samples parameter
+
+    Returns
+    -------
+
+    scan_orig: numpy array [n_points, 6]
+        original scan converted to numpy array, including color channel
+    scan_processed:  numpy array [n_sample_points, 3]
+        preprocessed scan (downsampled and denoised)
 
     """
 
     scan = trimesh.load_mesh(scan_path)
     n_scan_points = len(scan.vertices)
-    if hasattr(scan, 'colors') and (scan.colors[0] is not None):
+
+    try:
         scan_rgb = np.asarray(scan.colors[0]) / 255
-    else:
+    except:
         print("no color channel for the point cloud detected, using default green color...")
         scan_rgb = np.tile(np.asarray([0, 1.0, 0.5]), [n_scan_points, 1])
 
@@ -76,6 +100,22 @@ def load_scan(scan_path, n_sample_points=10000, denoise=True,
 
 
 def get_alignment(x_scan, ckpt_path):
+    """
+    Predict alignment with a pre-trained model given pre-processed scan
+
+    Parameters
+    ----------
+    x_scan: numpy array [n_sample_points, 3]
+        preprocessed scan (downsampled and denoised)
+    ckpt_path: str
+        path to model checkpoint
+
+    Returns
+    -------
+    x_align: numpy array [6890, 3]
+        predicted SMPL mesh vertices
+
+    """
     x_norm, x_mean, x_max = bps.normalize(x_scan.reshape([1, -1, 3]), max_rescale=False, return_scalers=True, verbose=False)
     x_bps = bps.encode(x_norm, radius=BPS_RADIUS, n_bps_points=N_BPS_POINTS, bps_cell_type='dists', verbose=False)
 
@@ -100,8 +140,9 @@ def save_obj(mesh_verts, mesh_faces, save_path, face_colors=[0, 128, 255]):
     return
 
 
-def save_visualisations(save_path, x_orig, x_proc, x_align, smpl_faces, scan2mesh_dist, scan_path,
+def save_visualisations(save_path, scan_orig, x_proc, x_align, smpl_faces, scan2mesh_dist, scan_path,
                         max_points_to_show=100000):
+
     fig = plt.figure(figsize=(25, 10))
 
     fig1 = fig.add_subplot(1, 3, 1, projection='3d')
@@ -109,8 +150,8 @@ def save_visualisations(save_path, x_orig, x_proc, x_align, smpl_faces, scan2mes
     fig1.set_xlim(np.min(x_align[:, 0]), np.max(x_align[:, 0]))
     fig1.set_ylim(np.min(x_align[:, 1]), np.max(x_align[:, 1]))
     fig1.view_init(elev=90, azim=-90)
-    x_orig_show = x_orig[np.random.choice(len(x_orig), max_points_to_show)]
-    fig1.scatter(x_orig_show[:, 0], x_orig_show[:, 1], x_orig_show[:, 2], s=0.1, c=x_orig_show[:, 3:])
+    scan_orig_show = scan_orig[np.random.choice(len(scan_orig), max_points_to_show)]
+    fig1.scatter(scan_orig_show[:, 0], scan_orig_show[:, 1], scan_orig_show[:, 2], s=0.1, c=scan_orig_show[:, 3:])
     plt.title('Input Scan', size=30)
 
     # fig1 = fig.add_subplot(1, 4, 2, projection='3d')
@@ -135,7 +176,7 @@ def save_visualisations(save_path, x_orig, x_proc, x_align, smpl_faces, scan2mes
     fig1.set_ylim(np.min(x_align[:, 1]), np.max(x_align[:, 1]))
     fig1.view_init(elev=90, azim=-90)
 
-    fig1.scatter(x_orig_show[:, 0], x_orig_show[:, 1], x_orig_show[:, 2], s=0.1, c=x_orig_show[:, 3:])
+    fig1.scatter(scan_orig_show[:, 0], scan_orig_show[:, 1], scan_orig_show[:, 2], s=0.1, c=scan_orig_show[:, 3:])
     fig1.plot_trisurf(x_align[:, 0], x_align[:, 1], x_align[:, 2], triangles=smpl_faces, color=[0, 0.5, 1.0])
     plt.title('Overlay (scan2mesh: %3.1f mms)' % scan2mesh_dist, size=30)
 
