@@ -45,7 +45,7 @@ def normalize(x, known_scalers=False, x_mean=None, x_max=None, max_rescale=True,
         # note: max norm could be not robust to outliers!
         if x_max is None:
             if max_rescale:
-                x_max = np.max(np.sqrt(np.sum(np.square(x), axis=1)))
+                x_max = np.max(np.sqrt(np.sum(np.square(x_norm), axis=1)))
             else:
                 x_max = 1.0
         x_norm = x_norm / x_max
