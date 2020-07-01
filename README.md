@@ -29,6 +29,19 @@ challenge.
  Check our [ICCV 2019 paper](https://arxiv.org/abs/1908.09186) for more 
  details.
 
+## Citation
+
+If you find our work useful in your research, please consider citing:
+```
+@inproceedings{prokudin2019efficient,
+  title={Efficient Learning on Point Clouds With Basis Point Sets},
+  author={Prokudin, Sergey and Lassner, Christoph and Romero, Javier},
+  booktitle={Proceedings of the IEEE International Conference on Computer Vision},
+  pages={4332--4341},
+  year={2019}
+}
+```
+
 ## Usage
  
 ### Requirements
@@ -127,18 +140,6 @@ Here is an example of a prediction on some noisy real scan:
 ![Teaser](real_scan_alignment.svg)
 
 
-## Citation
-
-If you find our work useful in your research, please consider citing:
-```
-@inproceedings{prokudin2019efficient,
-  title={Efficient Learning on Point Clouds With Basis Point Sets},
-  author={Prokudin, Sergey and Lassner, Christoph and Romero, Javier},
-  booktitle={Proceedings of the IEEE International Conference on Computer Vision},
-  pages={4332--4341},
-  year={2019}
-}
-```
 ## License
 
 This library is licensed under the MIT-0 License. See the LICENSE file.
