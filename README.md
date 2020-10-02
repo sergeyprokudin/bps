@@ -1,5 +1,7 @@
 # Efficient Learning on Point Clouds with Basis Point Sets
 
+UPDATE: [PyTorch implementation of BPS](https://github.com/otaheri/bps_torch) is now available thanks to [Omid Taheri](https://github.com/otaheri).
+
 **Basis Point Set (BPS)** is a simple and efficient method for encoding 3D point clouds into fixed-length 
 representations.
 
