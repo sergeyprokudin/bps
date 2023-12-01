@@ -5,9 +5,9 @@ setup(
     name="bps",
     version=1.0,
     description="Basis point set (BPS) library for efficient point cloud encoding",
-    setup_requires=["numpy", "sklearn", "tqdm"],
+    setup_requires=["numpy", "scikit-learn", "tqdm"],
     install_requires=[
-        "sklearn",
+        "scikit-learn",
         "tqdm",
         "numpy"
     ],
